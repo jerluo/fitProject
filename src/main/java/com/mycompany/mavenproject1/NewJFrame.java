@@ -5,6 +5,15 @@
  */
 package com.mycompany.mavenproject1;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  *
  * @author lpron
@@ -15,8 +24,26 @@ public class NewJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public NewJFrame() {
+        
         initComponents();
-        //hi bye
+        
+        try {
+            
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://community-open-weather-map.p.rapidapi.com/weather?q=London%2Cuk&lat=0&lon=0&callback=test&id=2172797&lang=null&units=imperial&mode=xml"))
+                    .header("X-RapidAPI-Host", "community-open-weather-map.p.rapidapi.com")
+                    .header("X-RapidAPI-Key", "752b219bfcmsh980cb1778a3c07cp125ab9jsne84fc88ea8fa")
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
