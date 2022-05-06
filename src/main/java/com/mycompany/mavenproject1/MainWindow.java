@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import org.apache.http.util.EntityUtils;
+import org.json.*;
 
 /**
  *
@@ -697,14 +699,28 @@ public class MainWindow extends javax.swing.JFrame {
         try {
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://community-open-weather-map.p.rapidapi.com/weather?q=London%2Cuk&lat=0&lon=0&callback=test&id=4671654&lang=en&units=imperial"))
+                    .uri(URI.create("https://community-open-weather-map.p.rapidapi.com/weather?q=Austin%2Cus&lat=0&lon=0&callback=test&id=4671654&lang=null&units=imperial&mode=JSON"))
                     .header("X-RapidAPI-Host", "community-open-weather-map.p.rapidapi.com")
                     .header("X-RapidAPI-Key", "752b219bfcmsh980cb1778a3c07cp125ab9jsne84fc88ea8fa")
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
 
+            String body = response.body().substring(5, response.body().length()-1);
+
+            JSONObject obj = new JSONObject(body);
+            //System.out.println(obj.getJSONObject("main"));
+            JSONObject main = obj.getJSONObject("main");
+            System.out.println(main);
+            double tempHigh = main.getDouble("temp_max");
+            double tempLow = main.getDouble("temp_min");
+
+            tempLabel.setText("H:" + tempHigh + "F / L:" + tempLow + "F");
+            
+            //String desc = obj.getJSONArray("weather").getString(0);
+            //String location = obj.getString("name");
+            
+            //weatherLabel.setText("weather in " + location + ": " + desc);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
