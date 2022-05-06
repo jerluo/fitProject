@@ -23,15 +23,15 @@ import javax.swing.JLabel;
  *
  * @author lpron
  */
-public class NewJFrame extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public MainWindow() {
 
         initComponents();
-        //weatherCall();
+        weatherCall();
         //Load images
 
     }
@@ -594,7 +594,6 @@ public class NewJFrame extends javax.swing.JFrame {
         imageResize("Nb.jpg");
         //jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Nb.jpg"))); // NOI18N
 
-        
         //jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newbalancess.png"))); // NOI18N
 
     }//GEN-LAST:event_jButton16ActionPerformed
@@ -616,20 +615,21 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new MainWindow().setVisible(true);
             }
         });
     }
@@ -697,19 +697,18 @@ public class NewJFrame extends javax.swing.JFrame {
         try {
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://community-open-weather-map.p.rapidapi.com/weather?q=London%2Cuk&lat=0&lon=0&callback=test&id=2172797&lang=null&units=imperial&mode=xml"))
+                    .uri(URI.create("https://community-open-weather-map.p.rapidapi.com/weather?q=London%2Cuk&lat=0&lon=0&callback=test&id=4671654&lang=en&units=imperial"))
                     .header("X-RapidAPI-Host", "community-open-weather-map.p.rapidapi.com")
                     .header("X-RapidAPI-Key", "752b219bfcmsh980cb1778a3c07cp125ab9jsne84fc88ea8fa")
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
-
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.body());
 
         } catch (IOException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -718,11 +717,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         try {
             img = ImageIO.read(new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + file));
-            
+
             Image dimg = img.getScaledInstance(64, 64, Image.SCALE_SMOOTH);
             ImageIcon imageIcon = new ImageIcon(dimg);
             jLabel16.setIcon(imageIcon);
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
