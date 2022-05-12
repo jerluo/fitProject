@@ -16,6 +16,7 @@ public class Item {
     
     private ItemType type;
     private Fit fit;
+    //needs image
     
     // least 0 - 10 most
     private int thickness;
@@ -24,8 +25,13 @@ public class Item {
     private Color primaryColor;
     private Color secondaryColor;
     
-    public Item(){
-        
+    public Item(ItemType type, Fit fit, int thickness, int formality, Color primaryColor, Color secondaryColor){
+        this.type = type;
+        this.fit = fit;
+        this.thickness = thickness;
+        this.formality = formality;
+        this.primaryColor = primaryColor;
+        this.secondaryColor = secondaryColor;
     }
     
     public boolean isLayer() {
